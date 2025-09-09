@@ -1,0 +1,46 @@
+{
+  "launches": {
+    "clean_count": 187,
+    "reject_count": 0,
+    "reject_reasons": []
+  },
+  "rockets": {
+    "clean_count": 4,
+    "reject_count": 0,
+    "reject_reasons": []
+  },
+  "launchpads": {
+    "clean_count": 6,
+    "reject_count": 0,
+    "reject_reasons": []
+  },
+  "payloads": {
+    "clean_count": 225,
+    "reject_count": 0,
+    "reject_reasons": []
+  },
+  "cores": {
+    "clean_count": 83,
+    "reject_count": 0,
+    "reject_reasons": []
+  },
+  "launch_payload_bridge": {
+    "clean_count": 216,
+    "reject_count": 0,
+    "reject_reasons": []
+  },
+  "launch_core_bridge": {
+    "clean_count": 193,
+    "reject_count": 0,
+    "reject_reasons": []
+  },
+  "anomalies": [
+    "2006-03",
+    "2007-03",
+    "2008-08",
+    "2015-06",
+    "2016-09",
+    "2022-07"
+  ],
+  "assignment_signature": "SPX-ETL-2025-IdrA"
+}
