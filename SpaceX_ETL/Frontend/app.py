@@ -39,3 +39,8 @@ st.subheader("Launches over time")
 df["launch_date"] = pd.to_datetime(df["launch_date"])
 launches_per_year = df.groupby(df["launch_date"].dt.year).size()
 st.bar_chart(launches_per_year)
+
+
+
+
+# EXAMPLE CODE #
