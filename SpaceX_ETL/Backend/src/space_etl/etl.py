@@ -30,6 +30,7 @@ from .utils import (
     write_json_file,
     write_csv_file
 )
+from .storyteller import write_stories
 
 # Logging
 logger = logging.getLogger(__name__)
@@ -249,5 +250,12 @@ def etl_pipeline(raw_data: Dict[str, Any], output_dir: str):
    # Generate quality report
     report = summarize_quality(all_clean, all_rejects, anomalies)
     write_quality_report(report, output_dir)
+
+    #  mission stories part for  non tech people 
+    try:
+        story_path = write_stories(all_clean.get("launches", []), output_dir)
+        logger.info(f"Wrote mission stories to {story_path}")
+    except Exception as e:
+        logger.warning(f"Could not write mission stories: {e}")
 
    
