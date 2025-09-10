@@ -302,7 +302,7 @@ with tabs[4]:
         st.caption("No rejects directory found.")
 
 with tabs[5]:
-    st.subheader("Play with launch conditions and see the odds")
+    st.subheader("Lets play with launch conditions and see the odds!")
 
     col1, col2, col3 = st.columns(3)
 
@@ -438,4 +438,3 @@ with tabs[6]:
 
 
 
-# EXAMPLE CODE #
