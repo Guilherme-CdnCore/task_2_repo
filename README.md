@@ -171,6 +171,11 @@ If you encounter import errors:
 pip install --upgrade -r requirements.txt
 ```
 
+## Documentation
+- **README.md** - Setup and usage instructions
+- **BIAS_ANALYSIS.md** - Comprehensive bias analysis and overfitting prevention
+- **requirements.txt** - Python dependencies
+
 ## Assignment Signature
 `SPX-ETL-2025-IdrA`
 
