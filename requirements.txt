@@ -8,3 +8,4 @@ uvicorn
 pytest
 scikit-learn
 joblib
+streamlit-lottie
