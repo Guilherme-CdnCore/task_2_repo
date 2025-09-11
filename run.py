@@ -3,11 +3,23 @@ import sys
 from pathlib import Path
 import tkinter as tk
 from tkinter import ttk
+import webbrowser
+import threading
+import time
 
 
 ROOT = Path(__file__).resolve().parent
 BACKEND_API = ROOT / "SpaceX_ETL" / "Backend" / "api.py"
 FRONTEND_APP = ROOT / "SpaceX_ETL" / "Frontend" / "app.py"
+
+
+def open_browser_delayed():
+    """Open browser after Streamlit starts (5 second delay)"""
+    time.sleep(5)
+    try:
+        webbrowser.open("http://localhost:8501")
+    except:
+        pass
 
 
 def prompt_mode_gui() -> str:
@@ -43,7 +55,7 @@ def main():
     # Optional CLI: python run.py [offline|online|api]
     mode = sys.argv[1].lower() if len(sys.argv) > 1 else prompt_mode_gui()
     if mode not in {"offline", "online", "api"}:
-        print("Invalid mode. Use 'offline' or 'online'.")
+        print("Invalid mode. Use 'offline', 'online', or 'api'.")
         sys.exit(1)
 
     api_proc = None
@@ -60,8 +72,19 @@ def main():
                 print("Frontend app not found at:", FRONTEND_APP)
                 sys.exit(1)
             print("Launching Streamlit dashboard ...")
-            # Streamlit runs in the foreground; when it exits, we clean up the API (if any)
-            code = subprocess.call([sys.executable, "-m", "streamlit", "run", str(FRONTEND_APP)], cwd=str(FRONTEND_APP.parent))
+            
+            # Start browser thread (only for GUI mode, not CLI)
+            if len(sys.argv) == 1:  # GUI mode
+                browser_thread = threading.Thread(target=open_browser_delayed, daemon=True)
+                browser_thread.start()
+            
+            # Streamlit with headless mode to prevent auto-browser opening
+            code = subprocess.call([
+                sys.executable, "-m", "streamlit", "run", str(FRONTEND_APP),
+                "--server.headless", "true",
+                "--browser.gatherUsageStats", "false",
+                "--server.port", "8501"
+            ], cwd=str(FRONTEND_APP.parent))
             sys.exit(code)
         else:
             # API-only mode: wait for CTRL+C
@@ -77,5 +100,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
