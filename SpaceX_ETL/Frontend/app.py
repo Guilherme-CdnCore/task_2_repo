@@ -411,19 +411,22 @@ with tabs[5]:
             st.caption("RandomForest")
             st.dataframe(cm_rf)
 
+        
         # ROC curves
         st.markdown("**ROC Curves** (optional)")
-        roc_df = pd.DataFrame()
+
+        # Handle ROC curves separately since they may have different lengths
         if results["lr"]["roc"]["fpr"] is not None:
-            roc_df["LR_FPR"] = results["lr"]["roc"]["fpr"]
-            roc_df["LR_TPR"] = results["lr"]["roc"]["tpr"]
             st.caption(f"LR AUC = {results['lr']['roc']['auc']:.3f}")
-        roc_df["RF_FPR"] = results["rf"]["roc"]["fpr"]
-        roc_df["RF_TPR"] = results["rf"]["roc"]["tpr"]
+            
         st.caption(f"RF AUC = {results['rf']['roc']['auc']:.3f}")
-        # Show RF ROC as line chart (FPR vs TPR)
-        if not roc_df.empty:
-            st.line_chart(roc_df[[c for c in roc_df.columns if "TPR" in c]])
+
+        # Create RF ROC DataFrame and display it
+        rf_roc_df = pd.DataFrame({
+            "FPR": results["rf"]["roc"]["fpr"],
+            "TPR": results["rf"]["roc"]["tpr"]
+        })
+        st.line_chart(rf_roc_df.set_index("FPR")["TPR"])
 
         # Feature importances (RF)
         st.markdown("**RandomForest Feature Importance**")
